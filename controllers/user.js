@@ -5,7 +5,7 @@ const {setUser} =  require("../service/auth")
 
 async function createUserSignUp(req,res){
     const {name, email, password} = req.body
-    if(name, email, password)
+    if(name && email && password)
         await User.create({
     name,
     email,
@@ -21,9 +21,9 @@ async function createUserLogin(req,res){
     if(!user) return res.render("login", {
         error: "Invalid credentials"
     })
-    const sessionId = uuidv4()
-    setUser(sessionId, user)
-    res.cookie("uid", sessionId)
+
+    const token = setUser(user)
+    res.cookie("uid", token)
     return res.redirect("/")
 }
 

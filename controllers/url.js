@@ -9,9 +9,10 @@ async function generateNewShortUrl(req, res){
   await URL.create({
     shortId: shortId,
     redirectUrl: body.url,
-    visitHistory: []
+    visitHistory: [],
+    createdBy: req.user._id
   })
-  return res.json({id: shortId})
+  return res.render("home", {id: shortId,})
 }
 
 async function getAnalytics(req,res){
@@ -22,5 +23,5 @@ async function getAnalytics(req,res){
 
 module.exports = {
     generateNewShortUrl,
-    getAnalytics
+    getAnalytics,
 }
